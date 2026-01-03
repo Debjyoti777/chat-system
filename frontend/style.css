@@ -1,0 +1,160 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle, #0b1a3a, #050b1c);
+  color: white;
+}
+
+/* ================= AUTH CARDS ================= */
+.card {
+  background: #0f1f3d;
+  padding: 30px;
+  border-radius: 12px;
+  width: 300px;
+  margin: 15vh auto;
+  text-align: center;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  background: #081226;
+  border: 1px solid #223b6d;
+  color: white;
+  border-radius: 20px;
+}
+
+/* GLOBAL BUTTON (NORMAL SIZE) */
+button {
+  padding: 12px 20px;
+  background: #d62828;
+  border: none;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #b81f1f;
+}
+
+.link {
+  margin-top: 10px;
+  color: #7aa2ff;
+  cursor: pointer;
+}
+
+/* ================= CHAT LAYOUT ================= */
+#chatBox {
+  display: flex;
+  height: 100vh;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+  width: 25%;
+  background: #081226;
+  padding: 15px;
+  border-right: 1px solid #223b6d;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 12px;
+  margin-bottom: 8px;
+  background: #0f1f3d;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.sidebar li:hover {
+  background: #122a52;
+}
+
+/* ================= CHAT AREA ================= */
+.chat {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  background: #050b1c;
+}
+
+#messages {
+  flex: 1;
+  padding: 15px;
+  list-style: none;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ================= MESSAGE BUBBLES ================= */
+.message {
+  max-width: 55%;
+  padding: 10px 14px;
+  margin: 6px 0;
+  border-radius: 14px;
+  font-size: 14px;
+  word-wrap: break-word;
+}
+
+/* RECEIVER (LEFT - BLUE) */
+.received {
+  background: #122a52;
+  color: white;
+  align-self: flex-start;
+  border-bottom-left-radius: 0;
+}
+
+/* SENDER (RIGHT - RED) */
+.sent {
+  background: #d62828;
+  color: white;
+  align-self: flex-end;
+  border-bottom-right-radius: 0;
+}
+
+/* ================= INPUT AREA ================= */
+.inputBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  background: #081226;
+  border-top: 1px solid #223b6d;
+}
+
+/* MESSAGE INPUT (BIG) */
+.inputBox input {
+  flex: 1;
+  padding: 14px;
+  border-radius: 25px;
+  font-size: 15px;
+  margin: 0;
+}
+
+/* SEND BUTTON (NORMAL SIZE) */
+.inputBox button {
+  width: 90px;
+  height: 45px;
+  border-radius: 25px;
+}
+
+.timestamp {
+  font-size: 11px;
+  opacity: 0.6;
+  margin-top: 4px;
+  text-align: right;
+}
+
+.typing {
+  font-size: 12px;
+  color: #7aa2ff;
+  margin: 5px 15px;
+  font-style: italic;
+}
