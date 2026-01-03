@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chat App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- SIGNUP -->
+<div id="signupBox" class="card">
+  <h2>Create Account</h2>
+  <input id="signupName" placeholder="Name" />
+  <input id="signupEmail" placeholder="Email" />
+  <input id="signupPassword" type="password" placeholder="Password" />
+  <button onclick="signup()">Signup</button>
+  <p class="link" onclick="showLogin()">Already have an account?</p>
+</div>
+
+<!-- LOGIN -->
+<div id="loginBox" class="card" style="display:none;">
+  <h2>Welcome 💬</h2>
+  <input id="email" placeholder="Email" />
+  <input id="password" type="password" placeholder="Password" />
+  <button onclick="login()">Login</button>
+  <p class="link" onclick="showSignup()">Create new account</p>
+</div>
+
+<!-- CHAT -->
+<div id="chatBox" style="display:none;">
+  <div class="sidebar">
+    <h3>Chats</h3>
+    <ul id="users"></ul>
+  </div>
+
+  <div class="chat">
+    <ul id="messages"></ul>
+    <div id="typingIndicator" class="typing" style="display:none;">
+        typing...
+    </div>
+    <div id="typingIndicator" style="display:none; color:#7aa2ff; padding:6px 14px;">
+      typing...
+    </div>
+
+    <div class="inputBox">
+      <input id="messageInput" placeholder="Type message..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
