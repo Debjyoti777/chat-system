@@ -260,5 +260,6 @@ function formatTime(dateString) {
 
 function logout() {
   localStorage.clear();
-  location.reload();
+  document.getElementById("chatBox").style.display = "none";
+  document.getElementById("loginBox").style.display = "block";
 }
