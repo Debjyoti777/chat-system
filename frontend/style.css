@@ -162,6 +162,10 @@ body {
 
 /* ===== MESSAGES ===== */
 #messages {
+  display: flex;           /* 🔥 add this */
+  flex-direction: column;  /* 🔥 add this */
+  gap: 10px;
+
   flex: 1;
   padding: 24px;
   list-style: none;
@@ -177,12 +181,14 @@ body {
 }
 
 .message {
+  width: fit-content;
   max-width: 60%;
   padding: 10px 14px;
   border-radius: 18px;
   margin: 6px 0;
 
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;   /* 🔥 important */
   align-items: flex-end;
   gap: 8px;
 
@@ -193,7 +199,7 @@ body {
 
 .sent {
   background: rgba(220, 50, 50, 0.85);
-  margin-left: auto;
+  align-self: flex-end;    /* RIGHT */
   border-bottom-right-radius: 6px;
   position: relative;
 }
@@ -214,7 +220,7 @@ body {
 
 .received {
   background: rgba(255, 255, 255, 0.12);
-  margin-right: auto;
+  align-self: flex-start;  /* LEFT */
   border-bottom-left-radius: 6px;
   position: relative;
 }
