@@ -4,6 +4,8 @@ let socket;
 let token = localStorage.getItem("token");
 let userId = localStorage.getItem("userId");
 let selectedUserId = null;
+const chatCache = {};
+
 /* SCREEN CONTROL */
 function showSignup() {
   signupBox.style.display = "block";
@@ -151,25 +153,29 @@ async function loadUsers() {
 
 /* LOAD CHAT HISTORY */
 async function selectUser(id) {
+  document.getElementById("emptyChat").style.display = "none";
   selectedUserId = id;
+
+  // restore cached chat
+  if (chatCache[id]) {
+    messages.innerHTML = chatCache[id];
+    return;
+  }
+
   messages.innerHTML = "";
-  document.getElementById("chatName").innerText =
-  users.find(u => u._id === id)?.name || "Chat";
 
   const res = await fetch(`${BASE_URL}/messages/${id}`, {
     headers: { Authorization: "Bearer " + token },
   });
 
   const msgs = await res.json();
+  msgs.forEach((m) =>
+    addMessage(m.content, m.sender === userId, m.createdAt)
+  );
 
-  msgs.forEach((m) => {
-    addMessage(m);
-
-    if (m.receiver === userId && m.status !== "seen") {
-      socket.emit("messageSeen", m._id);
-    }
-  });
+  chatCache[id] = messages.innerHTML;
 }
+
 
 /* SEND MESSAGE */
 let sending = false;
@@ -212,42 +218,29 @@ messageInput.addEventListener("keydown", (e) => {
 });
 
 /* RENDER MESSAGE */
-function addMessage(msg) {
+function addMessage(text, isMine, time) {
   const li = document.createElement("li");
-  li.className = `message ${msg.sender === userId ? "sent" : "received"}`;
+  li.classList.add("message", isMine ? "sent" : "received");
 
-  const text = document.createElement("div");
-  text.innerText = msg.content;
+  const msgText = document.createElement("div");
+  msgText.innerText = text;
 
-  const meta = document.createElement("div");
-  meta.style.fontSize = "11px";
-  meta.style.opacity = "0.7";
-  meta.style.marginTop = "4px";
-  meta.style.display = "flex";
-  meta.style.justifyContent = "flex-end";
-  meta.style.gap = "6px";
+  const timestamp = document.createElement("span");
+  timestamp.className = "time";
+  timestamp.innerText = time
+    ? new Date(time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+    : "";
 
-  const time = document.createElement("span");
-  time.innerText = new Date(msg.createdAt).toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-
-  meta.appendChild(time);
-
-  if (msg.sender === userId) {
-    const tick = document.createElement("span");
-    tick.id = `tick-${msg._id}`;
-    tick.innerText = msg.status === "sent" ? "✔" : "✔✔";
-    tick.style.color = msg.status === "seen" ? "#4fc3f7" : "#ccc";
-    meta.appendChild(tick);
-  }
-
-  li.appendChild(text);
-  li.appendChild(meta);
+  li.appendChild(msgText);
+  li.appendChild(timestamp);
   messages.appendChild(li);
   li.scrollIntoView();
+
+  if (selectedUserId) {
+    chatCache[selectedUserId] = messages.innerHTML;
+  }
 }
+
 
 function formatTime(dateString) {
   const date = new Date(dateString);
