@@ -36,12 +36,6 @@ window.onload = () => {
   loadUsers();
 };
 
-
-function logout() {
-  localStorage.clear();
-  location.reload();
-}
-
 /* SIGNUP */
 async function signup() {
   const name = signupName.value;
