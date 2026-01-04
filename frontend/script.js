@@ -267,6 +267,13 @@ function formatTime(dateString) {
 
 function logout() {
   localStorage.clear();
+  selectedUserId = null;
+
+  const title = document.getElementById("chatTitle");
+  title.innerText = "Select a chat";
+  title.classList.add("empty-chat");
+
   document.getElementById("chatBox").style.display = "none";
   document.getElementById("loginBox").style.display = "block";
 }
+
