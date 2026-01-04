@@ -160,3 +160,64 @@ body {
   color: white;
 }
 
+/* ===== AUTH CARDS (LOGIN / SIGNUP) ===== */
+.card {
+  width: 360px;
+  background: rgba(8, 18, 38, 0.95);
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+.card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 14px;
+  border-radius: 8px;
+  border: none;
+  background: #081226;
+  color: white;
+  font-size: 14px;
+}
+
+.card input::placeholder {
+  color: #aaa;
+}
+
+.card button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 25px;
+  border: none;
+  background: #d62828;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.card button:hover {
+  background: #b71f1f;
+}
+
+.card .link {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 13px;
+  color: #4fc3f7;
+  cursor: pointer;
+}
+
+.card .link:hover {
+  text-decoration: underline;
+}
