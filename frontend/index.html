@@ -27,46 +27,44 @@
 </div>
 
 <!-- CHAT -->
-<div id="chatBox">
+<div id="chatBox" style="display:none">
 
-  <!-- LEFT MENU (20%) -->
+  <!-- LEFT MENU -->
   <div class="menu">
-  <div class="menu-item">
-    💬 <span>Chats</span>
-  </div>
-
-  <div class="menu-bottom">
-    <div class="menu-item" onclick="logout()">
-      🚪 <span>Logout</span>
+    <div class="menu-item">
+      💬 <span>Chats</span>
     </div>
-  </div>
-  </div>
 
-
-  <!-- CHAT LIST (20%) -->
-  <div class="listPanel">
-    <input class="search" placeholder="Search chats..." />
-    <ul id="users" class="chatList"></ul>
-  </div>
-
-  <!-- CHAT AREA (60%) -->
-  <div class="chatPanel">
-    <div class="chatHeader">
-      <div>
-        <h3 id="chatName">Select a chat</h3>
-        <span id="chatStatus">Online</span>
+    <div class="menu-bottom">
+      <div class="menu-item" onclick="logout()">
+        🚪 <span>Logout</span>
       </div>
     </div>
+  </div>
 
-    <ul id="messages" class="messages"></ul>
+  <!-- CHAT LIST -->
+  <div class="sidebar">
+    <input type="text" placeholder="Search chats..." />
+    <ul id="users"></ul>
+  </div>
 
-    <div class="inputBar">
+  <!-- CHAT AREA -->
+  <div class="chat">
+    <div class="chat-header">
+      <h3>Select a chat</h3>
+      <small>Online</small>
+    </div>
+
+    <ul id="messages"></ul>
+
+    <div class="inputBox">
       <input id="messageInput" placeholder="Type your message..." />
-      <button onclick="sendMessage()">➤</button>
+      <button onclick="sendMessage()">Send</button>
     </div>
   </div>
 
 </div>
+
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="script.js"></script>
