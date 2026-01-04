@@ -5,8 +5,15 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: radial-gradient(circle, #0b1a3a, #050b1c);
   color: white;
+
+  background: 
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+    url("https://images.unsplash.com/photo-1504384308090-c894fdcc538d");
+
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
 }
 
 /* ===== MAIN LAYOUT ===== */
@@ -220,4 +227,10 @@ body {
 
 .card .link:hover {
   text-decoration: underline;
+}
+
+.card {
+  background: rgba(10, 20, 40, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
