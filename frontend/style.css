@@ -34,7 +34,7 @@ body {
 
 /* ===== MENU (15%) ===== */
 .menu {
-  width: 13%;
+  width: 9%;
   min-width: 90px;
 
   padding: 16px 10px;
@@ -59,8 +59,8 @@ body {
 
 /* ===== CHAT LIST (15%) ===== */
 .sidebar {
-  width: 33%;
-  min-width: 280px;
+  width: 20%;
+  min-width: 240px;
 
   padding: 14px;
   box-sizing: border-box;
