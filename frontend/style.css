@@ -34,9 +34,13 @@ body {
 
 /* ===== MENU (15%) ===== */
 .menu {
-  padding: 16px 10px;   /* add inner spacing */
-  align-items: center;  /* center items horizontally */
+  width: 13%;
+  min-width: 90px;
+
+  padding: 16px 10px;
+  align-items: center;
 }
+
 
 .menu-item {
   width: 100%;
@@ -55,6 +59,9 @@ body {
 
 /* ===== CHAT LIST (15%) ===== */
 .sidebar {
+  width: 33%;
+  min-width: 280px;
+
   padding: 14px;
   box-sizing: border-box;
 }
@@ -281,4 +288,13 @@ body {
   box-shadow:
     0 20px 50px rgba(0, 0, 0, 0.45),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Hide scrollbar but keep scrolling */
+#messages {
+  scrollbar-width: none;          /* Firefox */
+}
+
+#messages::-webkit-scrollbar {
+  display: none;                  /* Chrome, Edge, Safari */
 }
