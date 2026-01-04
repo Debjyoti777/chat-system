@@ -4,6 +4,7 @@ let socket;
 let token = localStorage.getItem("token");
 let userId = localStorage.getItem("userId");
 let selectedUserId = null;
+let allUsers = [];
 const chatCache = {};
 
 /* SCREEN CONTROL */
@@ -61,8 +62,8 @@ async function signup() {
 
 /* LOGIN */
 async function login() {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+  const email = emailInput.value;
+  const password = passwordInput.value;
 
   const res = await fetch(`${BASE_URL}/login`, {
     method: "POST",
@@ -97,33 +98,31 @@ function connectSocket() {
   socket = io(BASE_URL);
 
   socket.on("receiveMessage", (msg) => {
-  if (
-    (msg.sender === userId && msg.receiver === selectedUserId) ||
-    (msg.sender === selectedUserId && msg.receiver === userId)
-  ) {
-    addMessage(
-      msg.content,
-      msg.sender === userId,
-      msg.createdAt
-    );
-  }
-});
-
-  socket.on("messageStatusUpdate", ({ messageId, status }) => {
-    const tick = document.getElementById(`tick-${messageId}`);
-    if (!tick) return;
-
-    tick.innerText =
-      status === "seen" ? "✔✔" : "✔✔";
-
-    if (status === "seen") {
-      tick.style.color = "#4fc3f7"; // blue tick
+    if (
+      (msg.sender === userId && msg.receiver === selectedUserId) ||
+      (msg.sender === selectedUserId && msg.receiver === userId)
+    ) {
+      addMessage(msg.content, msg.sender === userId, msg.createdAt);
     }
   });
 }
 
+/* ================= USERS ================= */
 
-/* USERS */
+/* RENDER USERS (SINGLE SOURCE OF TRUTH) */
+function renderUsers(users) {
+  const usersList = document.getElementById("users");
+  usersList.innerHTML = "";
+
+  users.forEach((u) => {
+    const li = document.createElement("li");
+    li.innerText = u.name;
+    li.onclick = () => selectUser(u._id, u.name);
+    usersList.appendChild(li);
+  });
+}
+
+/* LOAD USERS */
 async function loadUsers() {
   const res = await fetch(`${BASE_URL}/users`, {
     headers: { Authorization: "Bearer " + token },
@@ -139,28 +138,32 @@ async function loadUsers() {
   const users = await res.json();
   if (!Array.isArray(users)) return;
 
-  const usersList = document.getElementById("users");
-  usersList.innerHTML = "";
-
-  users.forEach((u) => {
-    const li = document.createElement("li");
-    li.innerText = u.name;
-    li.onclick = () => selectUser(u._id, u.name);
-    usersList.appendChild(li);
-  });
+  allUsers = users;
+  renderUsers(allUsers);
 }
 
-/* LOAD CHAT HISTORY */
+/* SEARCH USERS */
+const searchInput = document.getElementById("searchInput");
+
+searchInput.addEventListener("input", () => {
+  const query = searchInput.value.toLowerCase().trim();
+
+  const filtered = allUsers.filter((u) =>
+    u.name.toLowerCase().includes(query)
+  );
+
+  renderUsers(filtered);
+});
+
+/* ================= CHAT ================= */
+
 async function selectUser(id, name) {
   selectedUserId = id;
 
-  // 🔥 SET CHAT TITLE INSTEAD OF HIDING IT
   const title = document.getElementById("chatTitle");
   title.innerText = name;
   title.classList.remove("empty-chat");
 
-
-  // restore cached chat
   if (chatCache[id]) {
     messages.innerHTML = chatCache[id];
     return;
@@ -180,10 +183,7 @@ async function selectUser(id, name) {
   chatCache[id] = messages.innerHTML;
 }
 
-
 /* SEND MESSAGE */
-let sending = false;
-
 function sendMessage() {
   if (!selectedUserId) return;
 
@@ -199,20 +199,6 @@ function sendMessage() {
   messageInput.value = "";
 }
 
-let typingTimeout;
-
-messageInput.addEventListener("input", () => {
-  if (!selectedUserId) return;
-
-  socket.emit("typing", { senderId: userId, receiverId: selectedUserId });
-
-  clearTimeout(typingTimeout);
-  typingTimeout = setTimeout(() => {
-    socket.emit("stopTyping", { senderId: userId, receiverId: selectedUserId });
-  }, 800);
-});
-
-
 /* ENTER KEY SEND */
 messageInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
@@ -223,11 +209,7 @@ messageInput.addEventListener("keydown", (e) => {
 
 /* RENDER MESSAGE */
 function addMessage(text, isMine, time) {
-  // 🔒 HARD GUARD — stops [object Object] forever
-  if (typeof text !== "string") {
-    console.error("❌ addMessage received invalid text:", text);
-    return;
-  }
+  if (typeof text !== "string") return;
 
   const li = document.createElement("li");
   li.classList.add("message", isMine ? "sent" : "received");
@@ -256,15 +238,7 @@ function addMessage(text, isMine, time) {
   }
 }
 
-function formatTime(dateString) {
-  const date = new Date(dateString);
-
-  return date.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
-
+/* LOGOUT */
 function logout() {
   localStorage.clear();
   selectedUserId = null;
@@ -273,7 +247,6 @@ function logout() {
   title.innerText = "Select a chat";
   title.classList.add("empty-chat");
 
-  document.getElementById("chatBox").style.display = "none";
-  document.getElementById("loginBox").style.display = "block";
+  chatBox.style.display = "none";
+  loginBox.style.display = "block";
 }
-
