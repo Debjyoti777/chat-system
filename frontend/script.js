@@ -159,6 +159,8 @@ async function loadUsers() {
 async function selectUser(id) {
   selectedUserId = id;
   messages.innerHTML = "";
+  document.getElementById("chatName").innerText =
+  users.find(u => u._id === id)?.name || "Chat";
 
   const res = await fetch(`${BASE_URL}/messages/${id}`, {
     headers: { Authorization: "Bearer " + token },
@@ -260,4 +262,9 @@ function formatTime(dateString) {
     hour: "2-digit",
     minute: "2-digit",
   });
+}
+
+function logout() {
+  localStorage.clear();
+  location.reload();
 }
