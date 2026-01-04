@@ -25,17 +25,25 @@ body {
 /* ===== MAIN LAYOUT ===== */
 #chatBox {
   display: flex;
+  gap: 18px;                 /* separation between bubbles */
+  padding: 18px;             /* space from screen edges */
   height: 100vh;
   width: 100%;
+  box-sizing: border-box;
 }
 
 /* ===== MENU (15%) ===== */
 .menu {
   width: 8%;
-  background: #081226;
+  min-width: 70px;
   display: flex;
   flex-direction: column;
-  padding: 15px 10px;
+
+  /* glass */
+  background: rgba(20, 40, 60, 0.45);
+  backdrop-filter: blur(18px);
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,0.12);
 }
 
 .menu-item {
@@ -56,9 +64,12 @@ body {
 /* ===== CHAT LIST (15%) ===== */
 .sidebar {
   width: 23%;
-  background: #0b1a2e;
-  padding: 15px;
-  border-right: 1px solid #223b6d;
+  min-width: 240px;
+
+  background: rgba(20, 40, 60, 0.45);
+  backdrop-filter: blur(18px);
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,0.12);
 }
 
 .sidebar input {
@@ -92,17 +103,21 @@ body {
 
 /* ===== CHAT AREA (70%) ===== */
 .chat {
-  width: 69%;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  background: #050b1c;
-  padding: 0; /* IMPORTANT: removes left gap */
+
+  background: rgba(20, 40, 60, 0.45);
+  backdrop-filter: blur(18px);
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,0.12);
 }
 
-
-.chat-header {
-  padding: 15px 20px;
-  border-bottom: 1px solid #223b6d;
+.chat-header,
+.inputBox {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  margin: 10px;
 }
 
 .chat-header small {
@@ -119,9 +134,17 @@ body {
 /* ===== MESSAGES ===== */
 #messages {
   flex: 1;
-  padding: 20px;
+  padding: 24px;
   list-style: none;
   overflow-y: auto;
+
+  /* glass depth effect */
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 18px;
+  margin: 14px;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .message {
@@ -150,7 +173,7 @@ body {
 .inputBox {
   display: flex;
   padding: 15px;
-  border-top: 1px solid #223b6d;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .inputBox input {
@@ -174,14 +197,19 @@ body {
 /* ===== AUTH CARDS (LOGIN / SIGNUP) ===== */
 .card {
   width: 360px;
-  background: rgba(8, 18, 38, 0.95);
   padding: 30px;
-  border-radius: 14px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  background: rgba(10, 20, 40, 0.6);
+  backdrop-filter: blur(12px);
+
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
 }
 
 .card h2 {
@@ -233,18 +261,25 @@ body {
   text-decoration: underline;
 }
 
-.card {
-  background: rgba(10, 20, 40, 0.6);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
 /* Glass panels */
 .sidebar,
 .chat,
 .menu {
-  background: rgba(10, 20, 40, 0.55);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;       /* bubble shape */
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.glass {
+  background: rgba(20, 40, 60, 0.45);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
