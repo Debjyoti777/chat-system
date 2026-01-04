@@ -97,18 +97,17 @@ function connectSocket() {
   socket = io(BASE_URL);
 
   socket.on("receiveMessage", (msg) => {
-    if (
-      (msg.sender === userId && msg.receiver === selectedUserId) ||
-      (msg.sender === selectedUserId && msg.receiver === userId)
-    ) {
-      addMessage(msg);
-    }
-
-    // receiver confirms delivery
-    if (msg.receiver === userId) {
-      socket.emit("messageDelivered", msg._id);
-    }
-  });
+  if (
+    (msg.sender === userId && msg.receiver === selectedUserId) ||
+    (msg.sender === selectedUserId && msg.receiver === userId)
+  ) {
+    addMessage(
+      msg.content,
+      msg.sender === userId,
+      msg.createdAt
+    );
+  }
+});
 
   socket.on("messageStatusUpdate", ({ messageId, status }) => {
     const tick = document.getElementById(`tick-${messageId}`);
@@ -219,28 +218,38 @@ messageInput.addEventListener("keydown", (e) => {
 
 /* RENDER MESSAGE */
 function addMessage(text, isMine, time) {
+  // 🔒 HARD GUARD — stops [object Object] forever
+  if (typeof text !== "string") {
+    console.error("❌ addMessage received invalid text:", text);
+    return;
+  }
+
   const li = document.createElement("li");
   li.classList.add("message", isMine ? "sent" : "received");
 
   const msgText = document.createElement("div");
+  msgText.className = "msg-text";
   msgText.innerText = text;
 
   const timestamp = document.createElement("span");
   timestamp.className = "time";
   timestamp.innerText = time
-    ? new Date(time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+    ? new Date(time).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      })
     : "";
 
   li.appendChild(msgText);
   li.appendChild(timestamp);
   messages.appendChild(li);
-  li.scrollIntoView();
+
+  messages.scrollTop = messages.scrollHeight;
 
   if (selectedUserId) {
     chatCache[selectedUserId] = messages.innerHTML;
   }
 }
-
 
 function formatTime(dateString) {
   const date = new Date(dateString);
