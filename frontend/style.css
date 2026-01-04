@@ -44,14 +44,27 @@ body {
 }
 
 .menu-item {
+  position: relative;
   width: 100%;
-  display: flex;
-  justify-content: center; /* center text/icon */
-  align-items: center;
-  text-align: center;
+  height: 44px;
 
-  padding: 12px 0;
+  display: flex;
+  align-items: center;
+
+  padding: 0 10px;
   border-radius: 12px;
+}
+
+.menu-icon {
+  position: absolute;
+  left: 14px;              /* emoji fixed to the left */
+  font-size: 16px;
+}
+
+.menu-text {
+  margin: 0 auto;          /* TRUE horizontal centering */
+  text-align: center;
+  font-weight: 500;
 }
 
 .menu-bottom {
