@@ -145,15 +145,20 @@ async function loadUsers() {
   users.forEach((u) => {
     const li = document.createElement("li");
     li.innerText = u.name;
-    li.onclick = () => selectUser(u._id);
+    li.onclick = () => selectUser(u._id, u.name);
     usersList.appendChild(li);
   });
 }
 
 /* LOAD CHAT HISTORY */
-async function selectUser(id) {
-  document.getElementById("emptyChat").style.display = "none";
+async function selectUser(id, name) {
   selectedUserId = id;
+
+  // 🔥 SET CHAT TITLE INSTEAD OF HIDING IT
+  const title = document.getElementById("chatTitle");
+  title.innerText = name;
+  title.classList.remove("empty-chat");
+
 
   // restore cached chat
   if (chatCache[id]) {
