@@ -34,54 +34,40 @@ body {
 
 /* ===== MENU (15%) ===== */
 .menu {
-  width: 8%;
-  min-width: 70px;
-  display: flex;
-  flex-direction: column;
-
-  /* glass */
-  background: rgba(20, 40, 60, 0.45);
-  backdrop-filter: blur(18px);
-  border-radius: 22px;
-  border: 1px solid rgba(255,255,255,0.12);
+  padding: 16px 10px;   /* add inner spacing */
+  align-items: center;  /* center items horizontally */
 }
 
 .menu-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
 }
 
 .menu-bottom {
   margin-top: auto;
+  width: 100%;
 }
 
+.menu-bottom .menu-item {
+  margin-bottom: 6px;
+}
 
 /* ===== CHAT LIST (15%) ===== */
 .sidebar {
-  width: 23%;
-  min-width: 240px;
-
-  background: rgba(20, 40, 60, 0.45);
-  backdrop-filter: blur(18px);
-  border-radius: 22px;
-  border: 1px solid rgba(255,255,255,0.12);
+  padding: 14px;
+  box-sizing: border-box;
 }
 
 .sidebar input {
   width: 100%;
-  padding: 10px;
-  border-radius: 18px;
+  padding: 12px;
+  border-radius: 20px;
   border: none;
-  background: #081226;
+  background: rgba(255, 255, 255, 0.08);
   color: white;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
-
 
 .sidebar ul {
   list-style: none;
@@ -124,6 +110,19 @@ body {
   display: none; /* removes Online */
 }
 
+.chat-header {
+  padding: 16px 22px;
+  margin: 12px;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+
+}
+
+.chat-header h3 {
+  margin: 0;
+  padding-left: 6px;
+}
 
 .empty-chat {
   margin: auto;
