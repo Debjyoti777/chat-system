@@ -197,7 +197,7 @@ body {
 }
 
 .sent {
-  background: linear-gradient(135deg, #3a7bd5, #2b5876);
+  background: rgba(72, 149, 239, 0.85);
   color: white;
   align-self: flex-end;    /* RIGHT */
   border-bottom-right-radius: 6px;
@@ -213,7 +213,7 @@ body {
   width: 0;
   height: 0;
 
-  border-left: 6px solid rgba(220, 50, 50, 0.85);
+  border-left: 6px solid rgba(72, 149, 239, 0.85);
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
 }
@@ -235,7 +235,7 @@ body {
   width: 0;
   height: 0;
 
-  border-right: 6px solid rgba(255, 255, 255, 0.12);
+  border-right: 6px solid rgba(255, 255, 255, 0.14);
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
 }
