@@ -62,8 +62,8 @@ async function signup() {
 
 /* LOGIN */
 async function login() {
-  const email = emailInput.value;
-  const password = passwordInput.value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
   const res = await fetch(`${BASE_URL}/login`, {
     method: "POST",
